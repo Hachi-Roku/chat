@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  
+  <form id="chat_form" style="height: 480px; width: 100%;">
+    <!--<div style="width: 240px;height:320px; border: 1px solid black; border-radius: 5px; float:left;"></div>-->
+    <div id="status" style="height: 320px; border: 1px solid black; border-radius: 5px;"></div>
+    <input style="margin-left: 240px;" id='chat_input' type="text" placeholder="input text here"><button>Send</button>
+  </form>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src = "/socket.io/socket.io.js"></script>
+  <script>
+    
+    var socket = io.connect('http://localhost:3000');
+    $('#chat_form').submit(function(e){
+      var message = $('#chat_input').val();
+      socket.emit('messages', message);
+    });
+    
+    socket.on('messages', function(data){
+      $('#status').append(data + "<br>");
+    });
+  
+  </script>
+  
+</body>
+</html>
